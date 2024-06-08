@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %} 
+{% load crispy_forms_tags %}
+
+<div class="container">
+  <h1 class="text-center">Welcome to profile page</h1>
+  User Name : {{user}}
+  <p>
+    <a href="{% url 'pass_change' %}" class="btn btn-outline-primary">Change your password</a>
+  </p>
+  <p>
+    <a href="{% url 'pass_change2' %}" class="btn btn-outline-primary">chnage pass with out password</a>
+  </p>
+
+  <form method="post" class="w-75 mx-auto" novalidate>
+    <h1 class="text-center">Sign In page</h1>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      {% for er in form.non_field_errors %}
+      <p class='bg-danger p-2'>{{er}}</p>
+      {%endfor%}
+    {%endif%}
+<!-- {{form | crispy }} -->
+    {% for fm in form %}
+      {{fm.label_tag}}
+      {{fm}}
+      {{fm.errors | striptags}}
+  </br>
+    {%endfor%}
+
+  <button type="submit" class="btn btn-outline-primary">Update Profile</button>
+  </form> 
+</div>
+
+{% endblock %}
